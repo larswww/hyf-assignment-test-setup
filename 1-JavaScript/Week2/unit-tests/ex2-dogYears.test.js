@@ -1,15 +1,16 @@
 'use strict';
-const {
+import { describe, test, beforeAll, expect } from 'vitest';
+import {
   beforeAllHelper,
   testTodosRemoved,
   testNoConsoleLog,
-} = require('../../../test-runner/unit-test-helpers');
+} from '../../../test-runner/unit-test-helpers';
 
 describe('calculateDogAge', () => {
   let exported, source, rootNode, calculateDogAge;
 
-  beforeAll(() => {
-    ({ exported, rootNode, source } = beforeAllHelper(__filename, {
+  beforeAll(async () => {
+    ({ exported, rootNode, source } = await beforeAllHelper(__filename, {
       parse: true,
     }));
     calculateDogAge = exported;
