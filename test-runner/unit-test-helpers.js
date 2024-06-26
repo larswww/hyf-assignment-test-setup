@@ -1,14 +1,15 @@
-const fs = require('fs');
-const path = require('path');
-const acorn = require('acorn');
-const walk = require('acorn-walk');
+import { test, expect, vi } from 'vitest';
+import fs from 'fs';
+import path from 'path';
+import { parse } from 'acorn';
+import { ancestor } from 'acorn-walk';
 
 const defaultOptions = {
   parse: false,
   noRequire: false,
 };
 
-function beforeAllHelper(testFilePath, options = {}) {
+async function beforeAllHelper(testFilePath, options = {}) {
   options = Object.assign(defaultOptions, options);
   const matches = testFilePath
     .replace(/\\/g, '/')
@@ -34,10 +35,12 @@ function beforeAllHelper(testFilePath, options = {}) {
   if (!options.noRequire) {
     try {
       // suppress all console.log output
-      jest.spyOn(console, 'log').mockImplementation();
-      result.exported = require(exercisePath);
+      vi.spyOn(console, 'log').mockImplementation();
+      const module = await import(exercisePath);
+      console.log('module:', module);
+      result.exported = module.default;
     } catch (err) {
-      console.log('Error attempting to `require`:', err);
+      console.log('Error attempting to `import`:', err);
     }
   }
 
@@ -45,8 +48,12 @@ function beforeAllHelper(testFilePath, options = {}) {
 
   if (options.parse) {
     try {
-      result.rootNode = acorn.parse(result.source, { ecmaVersion: 2020 });
+      result.rootNode = parse(result.source, {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+      });
     } catch (_) {
+      console.error(_);
       // Leave rootNode prop undefined
     }
   }
@@ -111,7 +118,7 @@ function testNoConsoleLog(functionName, getRootNode) {
     const rootNode = getRootNode();
     let callsConsoleLog = false;
     rootNode &&
-      walk.ancestor(rootNode, {
+      ancestor(rootNode, {
         CallExpression({ callee }, ancestors) {
           if (
             callee.object?.name === 'console' &&

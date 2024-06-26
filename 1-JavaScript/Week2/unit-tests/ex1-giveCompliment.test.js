@@ -1,25 +1,28 @@
 /* eslint-disable hyf/camelcase */
 'use strict';
-const walk = require('acorn-walk');
-const {
+import { describe, test, beforeAll, expect, vi } from 'vitest';
+import { simple } from 'acorn-walk';
+import {
   beforeAllHelper,
   testTodosRemoved,
   testNoConsoleLog,
-} = require('../../../test-runner/unit-test-helpers');
+} from '../../../test-runner/unit-test-helpers';
 
 describe('giveCompliment', () => {
   const state = {};
   let exported, rootNode, source, giveCompliment;
 
-  beforeAll(() => {
-    ({ exported, rootNode, source } = beforeAllHelper(__filename, {
+  beforeAll(async () => {
+    await ({ exported, rootNode, source } = await beforeAllHelper(__filename, {
       parse: true,
     }));
     giveCompliment = exported;
 
+    console.log(exported, rootNode, source);
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         VariableDeclarator({ id, init }) {
+          console.log(id, init);
           if (id?.name === 'compliments' && init?.type === 'ArrayExpression') {
             state.compliments = init.elements.map((elem) => elem.value);
           }
@@ -56,7 +59,7 @@ describe('giveCompliment', () => {
 
     const name = 'HackYourFuture';
 
-    const spy = jest.spyOn(Math, 'random').mockReturnValue(0);
+    const spy = vi.spyOn(Math, 'random').mockReturnValue(0);
     const received = giveCompliment(name);
 
     expect(
