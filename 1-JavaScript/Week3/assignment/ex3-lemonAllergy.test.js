@@ -1,4 +1,5 @@
 'use strict';
+import { describe, test, expect } from 'vitest';
 /*------------------------------------------------------------------------------
 Full description at: https://github.com/HackYourFuture/Assignments/tree/main/1-JavaScript/Week4#exercise-3-lemon-allergy
 
@@ -26,26 +27,28 @@ const fruitBasket = [
 ];
 
 // ! Function under test
-function sanitizeFruitBasket(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+function sanitizeFruitBasket(arrayToFilter, itemToRemove) {
+  return arrayToFilter.filter((item) => item !== itemToRemove);
 }
 
-// ! Unit tests (using Jest)
+// ! Unit tests (using Vitest)
 describe('sanitizeFruitBasket', () => {
   test('should take two parameters', () => {
-    // TODO replace next line with your code
-    expect(false).toBe(true);
+    expect(sanitizeFruitBasket.length).toBe(2);
   });
 
   test('should not modify the original `fruitBasket` array', () => {
     // Save the original contents of the fruit basket
     const originalFruitBasketContents = [...fruitBasket];
-    // TODO replace next line with your code
-    expect(false).toBe(true);
+    const sanitizedFruitBasket = sanitizeFruitBasket(fruitBasket, 'lemon');
+    expect(
+      originalFruitBasketContents.length !== sanitizedFruitBasket.length
+    ).toBe(true);
   });
 
   test('should return a new array that does not include the unwanted `lemon`', () => {
-    // TODO replace next line with your code
-    expect(false).toBe(true);
+    const toSanitize = 'lemon';
+    const sanitizedFruitBasket = sanitizeFruitBasket(fruitBasket, toSanitize);
+    expect(sanitizedFruitBasket.indexOf(toSanitize)).toBe(-1);
   });
 });

@@ -153,7 +153,7 @@ To run the exercise while in VSCode, first open a VSCode **Integrated Terminal**
 The most convenient way to run an exercise from the command line is to use the **exercise runner** included in this repo. Type the following command to run an exercise this way:
 
 ```text
-npm run it
+npm run test
 ```
 
 This will lead you through a series of prompts, similar to as shown below, to select the exercise to run:

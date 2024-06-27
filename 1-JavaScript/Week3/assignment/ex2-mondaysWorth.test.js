@@ -1,4 +1,5 @@
 'use strict';
+import { describe, test, expect } from 'vitest';
 /*------------------------------------------------------------------------------
 Full description atL https://github.com/HackYourFuture/Assignments/tree/main/1-JavaScript/Week4#exercise-2-whats-your-monday-worth
 
@@ -31,11 +32,15 @@ const mondayTasks = [
 
 const hourlyRate = 25;
 
-function computeEarnings(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+function computeEarnings(tasksArray, hourlyRateNumber) {
+  const costPerTask = tasksArray.map(
+    (task) => (task.duration / 60) * hourlyRateNumber
+  );
+  const totalCost = costPerTask.reduce((acc, cost) => acc + cost, 0);
+  return `€${totalCost.toFixed(2)}`;
 }
 
-// ! Unit tests (using Jest)
+// ! Unit tests (using Vitest)
 describe('computeEarnings', () => {
   test('should take two parameters', () => {
     // The `.length` property indicates the number of parameters expected by

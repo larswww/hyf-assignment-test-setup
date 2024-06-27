@@ -1,25 +1,26 @@
 /* eslint-disable hyf/camelcase */
 'use strict';
-const walk = require('acorn-walk');
-const {
+import { describe, test, expect, beforeAll, vi } from 'vitest';
+import { simple } from 'acorn-walk';
+import {
   beforeAllHelper,
   testTodosRemoved,
   testNoConsoleLog,
-} = require('../../../test-runner/unit-test-helpers');
+} from '../../../test-runner/unit-test-helpers';
 
 describe('tellFortune', () => {
   let exported, rootNode, source, tellFortune;
   const state = {};
 
-  beforeAll(() => {
-    ({ exported, rootNode, source } = beforeAllHelper(__filename, {
+  beforeAll(async () => {
+    ({ exported, rootNode, source } = await beforeAllHelper(__filename, {
       parse: true,
     }));
 
     tellFortune = exported;
 
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         VariableDeclarator({ id, init }) {
           if (id && init?.type === 'ArrayExpression') {
             state[id.name] = init.elements
@@ -94,7 +95,7 @@ describe('tellFortune', () => {
     expect(tellFortune).toBeDefined();
     const { numKids, partnerNames, locations, jobTitles } = state;
 
-    const spy = jest.spyOn(Math, 'random').mockReturnValue(0);
+    const spy = vi.spyOn(Math, 'random').mockReturnValue(0);
 
     const received = tellFortune(numKids, partnerNames, locations, jobTitles);
 

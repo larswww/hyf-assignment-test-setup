@@ -1,4 +1,7 @@
 'use strict';
+
+import { getRandomInt } from './ex1-giveCompliment';
+
 /*------------------------------------------------------------------------------
 Full description at: https://github.com/HackYourFuture/Assignments/tree/main/1-JavaScript/Week3#exercise-3-be-your-own-fortune-teller
 
@@ -33,29 +36,37 @@ body, this code is now written once only in a separated function.
 
 // This function should take an array as its parameter and return
 // a randomly selected element as its return value.
-function selectRandomly(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+function selectRandomly(fromArray) {
+  return fromArray[getRandomInt(fromArray.length - 1)];
 }
 
-function tellFortune(/* TODO add parameter(s) here */) {
-  // TODO complete this function
+function tellFortune(children, names, locations, jobs) {
+  const jobTitle = selectRandomly(jobs);
+  const location = selectRandomly(locations);
+  const partnerName = selectRandomly(names);
+  const numKids = selectRandomly(children);
+  return `You will be a ${jobTitle} in ${location}, married to ${partnerName} with ${numKids} kids.`;
 }
 
 function main() {
-  const numKids = [
-    // TODO add elements here
-  ];
+  const numKids = [1, 2, 3, 4, 5];
 
-  const partnerNames = [
-    // TODO add elements here
-  ];
+  const partnerNames = ['Lisa', 'Anna', 'Maria', 'Sara', 'Emma'];
 
   const locations = [
-    // TODO add elements here
+    'Amsterdam',
+    'Berlin',
+    'Copenhagen',
+    'Dublin',
+    'Edinburgh',
   ];
 
   const jobTitles = [
-    // TODO add elements here
+    'developer',
+    'designer',
+    'architect',
+    'engineer',
+    'manager',
   ];
 
   console.log(tellFortune(numKids, partnerNames, locations, jobTitles));
@@ -67,4 +78,4 @@ function main() {
 if (process.env.NODE_ENV !== 'test') {
   main();
 }
-module.exports = tellFortune;
+export default tellFortune;

@@ -1,4 +1,5 @@
-const createObservable = require('./ex4-observable');
+import { describe, test, expect, vi } from 'vitest';
+import createObservable from './ex4-observable';
 
 describe('createObservable', () => {
   test('should exist and be a function', () => {
@@ -16,8 +17,8 @@ describe('createObservable', () => {
     const observable = createObservable();
 
     // Create two mocked listener functions
-    const listener1 = jest.fn();
-    const listener2 = jest.fn();
+    const listener1 = vi.fn();
+    const listener2 = vi.fn();
 
     // Subscribe both function to the observable
     observable.subscribe(listener1);

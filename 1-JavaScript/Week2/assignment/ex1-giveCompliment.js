@@ -19,7 +19,7 @@ Full description at: https://github.com/HackYourFuture/Homework/tree/main/1-Java
    `giveCompliment` function to the console.
 -----------------------------------------------------------------------------*/
 
-const getRandomInt = (max) => Math.floor(Math.random() * max);
+export const getRandomInt = (max) => Math.floor(Math.random() * max);
 
 function giveCompliment(name) {
   const compliments = [

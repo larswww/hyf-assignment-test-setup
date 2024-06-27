@@ -1,3 +1,4 @@
+import { test, expect } from 'vitest';
 /*------------------------------------------------------------------------------
 Full description at: https://github.com/HackYourFuture/Assignments/tree/main/1-JavaScript/Week4#exercise-1-the-odd-ones-out
 
