@@ -1,25 +1,22 @@
 /* eslint-disable hyf/camelcase */
 'use strict';
-const walk = require('acorn-walk');
-const {
-  beforeAllHelper,
-  testTodosRemoved,
-  testNoConsoleLog,
-} = require('../../../test-runner/unit-test-helpers');
+import { describe, beforeAll, expect, test } from 'vitest';
+import { simple } from 'acorn-walk';
+import { beforeAllHelper, testTodosRemoved, testNoConsoleLog } from '../../../test-runner/unit-test-helpers';
 
 describe('checkDoubleDigits', () => {
   const state = {};
   let exported, rootNode, source, checkDoubleDigits;
 
-  beforeAll(() => {
-    ({ exported, rootNode, source } = beforeAllHelper(__filename, {
+  beforeAll(async () => {
+    ({ exported, rootNode, source } = await beforeAllHelper(__filename, {
       parse: true,
     }));
 
     checkDoubleDigits = exported;
 
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         NewExpression({ callee }) {
           if (callee.type === 'Identifier' && callee.name === 'Promise') {
             state.newPromise = true;

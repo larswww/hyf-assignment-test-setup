@@ -1,11 +1,12 @@
 /* eslint-disable hyf/camelcase */
-const walk = require('acorn-walk');
-const { prepare, validateHTML } = require('../../../test-runner/jsdom-helpers');
-const {
+import { describe, expect, test, vi, afterAll, beforeAll } from 'vitest';
+import { ancestor } from 'acorn-walk';
+import { prepare, validateHTML } from '../../../test-runner/jsdom-helpers';
+import {
   beforeAllHelper,
   onloadValidator,
   testTodosRemoved,
-} = require('../../../test-runner/unit-test-helpers');
+} from '../../../test-runner/unit-test-helpers';
 
 describe('whatsTheTime', () => {
   let rootNode, source;
@@ -14,9 +15,9 @@ describe('whatsTheTime', () => {
   let window;
 
   beforeAll(async () => {
-    window = await prepare();
+    window = await prepare(__filename);
 
-    setIntervalSpy = jest.spyOn(window, 'setInterval');
+    setIntervalSpy = vi.spyOn(window, 'setInterval');
 
     state.outerHTML = window.document.documentElement.outerHTML;
     ({ rootNode, source } = beforeAllHelper(__filename, {
@@ -25,7 +26,7 @@ describe('whatsTheTime', () => {
     }));
 
     rootNode &&
-      walk.ancestor(rootNode, {
+      ancestor(rootNode, {
         MemberExpression: onloadValidator(state),
         CallExpression({ callee }) {
           if (

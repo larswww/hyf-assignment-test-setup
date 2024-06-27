@@ -1,1 +1,16 @@
 /* Write your style here */
+.readBook {
+  background-color: #f1c40f;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.unreadBook {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}

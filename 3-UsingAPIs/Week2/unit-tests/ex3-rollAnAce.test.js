@@ -1,25 +1,26 @@
 /* eslint-disable hyf/camelcase */
-const walk = require('acorn-walk');
-const {
+import { describe, beforeAll, test, expect, vi } from 'vitest';
+import { ancestor } from 'acorn-walk';
+import {
   beforeAllHelper,
   testTodosRemoved,
   testNoConsoleLog,
   findAncestor,
-} = require('../../../test-runner/unit-test-helpers');
+} from '../../../test-runner/unit-test-helpers';
 
 describe('ex3-rollAnAce', () => {
   const state = {};
   let exported, rootNode, rollDieUntil, source;
 
   beforeAll(async () => {
-    ({ rootNode, exported, source } = beforeAllHelper(__filename, {
+    ({ rootNode, exported, source } = await beforeAllHelper(__filename, {
       parse: true,
     }));
 
     rollDieUntil = exported;
 
     rootNode &&
-      walk.ancestor(rootNode, {
+      ancestor(rootNode, {
         TryStatement({ handler }) {
           if (handler.type === 'CatchClause') {
             state.tryCatch = true;
@@ -70,7 +71,7 @@ describe('ex3-rollAnAce', () => {
     expect(exported).toBeDefined();
 
     // This sequence is known to settle on an ACE in three throws.
-    const randomSpy = jest
+    const randomSpy = vi
       .spyOn(global.Math, 'random')
       .mockReturnValueOnce(0.1992491366159479)
       .mockReturnValueOnce(0.9146104190986211)
@@ -101,7 +102,7 @@ describe('ex3-rollAnAce', () => {
 
     // This sequence is known to cause the die to roll off the table
     // in two throws.
-    const randomSpy = jest
+    const randomSpy = vi
       .spyOn(global.Math, 'random')
       .mockReturnValueOnce(0.3453916441274625)
       .mockReturnValueOnce(0.9834560635274558)

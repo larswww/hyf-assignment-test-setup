@@ -1,15 +1,17 @@
-const {
+import { describe, beforeAll, test, expect } from 'vitest';
+
+import {
   beforeAllHelper,
   testTodosRemoved,
-} = require('../../../test-runner/unit-test-helpers');
-const { prepare, validateHTML } = require('../../../test-runner/jsdom-helpers');
+} from '../../../test-runner/unit-test-helpers';
+import { prepare, validateHTML } from '../../../test-runner/jsdom-helpers';
 
 describe('Generated HTML', () => {
   const state = {};
   let window, document, source;
 
   beforeAll(async () => {
-    window = await prepare();
+    window = await prepare(__filename);
     document = window.document;
     state.outerHTML = document.documentElement.outerHTML;
 

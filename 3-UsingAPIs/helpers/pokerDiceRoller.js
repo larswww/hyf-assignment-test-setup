@@ -5,7 +5,7 @@
 const underTest = process.env.NODE_ENV === 'test';
 
 // JavaScript library to work with time: https://momentjs.com/docs/
-const moment = require('moment');
+import moment from 'moment';  
 
 // These are the six side on a poker die.
 const sides = ['NINE', 'TEN', 'JACK', 'QUEEN', 'KING', 'ACE'];
@@ -102,4 +102,4 @@ function rollDie(die = 1) {
   });
 }
 
-module.exports = rollDie;
+export default rollDie;

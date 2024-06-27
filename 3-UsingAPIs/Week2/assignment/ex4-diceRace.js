@@ -11,7 +11,7 @@ Full description at: https://github.com/HackYourFuture/Assignments/blob/main/3-U
    file.
 ------------------------------------------------------------------------------*/
 // ! Do not remove this line
-const rollDie = require('../../helpers/pokerDiceRoller');
+import rollDie from '../../helpers/pokerDiceRoller.js';
 
 function rollDice() {
   const dice = [1, 2, 3, 4, 5];
@@ -29,4 +29,4 @@ function main() {
 if (process.env.NODE_ENV !== 'test') {
   main();
 }
-module.exports = rollDice;
+export default rollDice;

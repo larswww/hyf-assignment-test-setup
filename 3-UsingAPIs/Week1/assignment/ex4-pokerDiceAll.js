@@ -24,7 +24,7 @@ exercise file.
 
 // The line below makes the rollDie() function available to this file.
 // Do not change or remove it.
-const rollDie = require('../../helpers/pokerDiceRoller');
+import rollDie from '../../helpers/pokerDiceRoller';
 
 function rollDice() {
   // TODO Refactor this function
@@ -42,4 +42,4 @@ function main() {
 if (process.env.NODE_ENV !== 'test') {
   main();
 }
-module.exports = rollDice;
+export default rollDice;

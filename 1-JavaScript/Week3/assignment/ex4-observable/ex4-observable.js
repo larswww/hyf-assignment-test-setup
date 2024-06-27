@@ -26,4 +26,4 @@ function createObservable() {
 }
 
 // ! Do not change or remove the code below
-module.exports = createObservable;
+export default createObservable;

@@ -113,7 +113,7 @@ The `setup` script must be run before committing changes to the main repo, to en
 
 ## Exercises and Unit Tests
 
-Simple _Node_-based exercises, consisting of a single JavaScript file, should include a `module.exports` object at the bottom of the file that exports a function to be tested. For example:
+Simple _Node_-based exercises, consisting of a single JavaScript file, should include a `export default` object at the bottom of the file that exports a function to be tested. For example:
 
 ```js
 function doubleEvenNumbers(numbers) {
@@ -121,7 +121,7 @@ function doubleEvenNumbers(numbers) {
 }
 
 // ! Do not change or remove the code below
-module.exports = doubleEvenNumbers;
+export default doubleEvenNumbers;
 ```
 
 The corresponding unit test can `require` this function in order to test it. Because many exercises include code that is executed immediatle when the file is *require*d `console.log`, `setTimeout`, `setInterval` and `Math.random` are mocked to no-ops during the (dynamic) `require`. This is done through the helper function `beforeAllHelper` in `unit-test-helper.js`. This function also reads the exercise file as text and (optionally) builds an AST (Abstract Syntax Tree) to enable static code analysis.

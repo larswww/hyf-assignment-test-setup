@@ -178,4 +178,4 @@ try {
   // ignore if running in node with jest
 }
 
-module.exports = createGame;
+export default createGame;

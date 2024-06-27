@@ -1,24 +1,21 @@
 /* eslint-disable hyf/camelcase */
 'use strict';
-const walk = require('acorn-walk');
-const {
-  beforeAllHelper,
-  testTodosRemoved,
-  testNoConsoleLog,
-} = require('../../../test-runner/unit-test-helpers');
+import { describe, beforeAll, expect, test, vi } from 'vitest';
+import { simple } from 'acorn-walk';
+import { beforeAllHelper, testTodosRemoved, testNoConsoleLog } from '../../../test-runner/unit-test-helpers';
 
 describe('getAnonName', () => {
   const state = { paramCount: 0 };
   let exported, rootNode, source, getAnonName;
 
-  beforeAll(() => {
-    ({ exported, rootNode, source } = beforeAllHelper(__filename, {
-      parse: true,
+  beforeAll(async () => {
+    ({ exported, rootNode, source } = await beforeAllHelper(__filename, {
+      parse: true, 
     }));
     getAnonName = exported;
 
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         VariableDeclarator({ id, init }) {
           if (id.type === 'Identifier' && id.name === 'getAnonName') {
             if (init.type === 'ArrowFunctionExpression') {
@@ -71,7 +68,7 @@ describe('getAnonName', () => {
   test('should resolve when called with a string argument', async () => {
     expect.assertions(3);
     expect(exported).toBeDefined();
-    const timeoutSpy = jest
+    const timeoutSpy = vi
       .spyOn(global, 'setTimeout')
       .mockImplementation((cb) => cb());
     const promise = getAnonName('John');
@@ -83,7 +80,7 @@ describe('getAnonName', () => {
   test('should reject with an Error object when called without an argument', async () => {
     expect.assertions(3);
     expect(exported).toBeDefined();
-    const timeoutSpy = jest
+    const timeoutSpy = vi
       .spyOn(global, 'setTimeout')
       .mockImplementation((cb) => cb());
     const promise = getAnonName();

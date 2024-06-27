@@ -1,5 +1,5 @@
-const winston = require('winston');
-const moment = require('moment');
+import winston from 'winston';
+import moment from'moment';
 
 const tsFormat = () => moment().format('YYYY-MM-DD hh:mm:ss').trim();
 
@@ -18,4 +18,4 @@ const logger = winston.createLogger({
   ],
 });
 
-module.exports = logger;
+export default logger;

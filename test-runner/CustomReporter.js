@@ -1,4 +1,4 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 class MyCustomReporter {
   onRunComplete(contexts, results) {
     let report = '';
@@ -49,4 +49,4 @@ class MyCustomReporter {
   }
 }
 
-module.exports = MyCustomReporter;
+export default MyCustomReporter;

@@ -1,7 +1,7 @@
-const path = require('path');
-const util = require('util');
-const chalk = require('chalk');
-const _rimraf = require('rimraf');
+import path from 'path';
+import util from 'util';
+import chalk from 'chalk';
+import _rimraf from 'rimraf';
 
 const rimraf = util.promisify(_rimraf);
 

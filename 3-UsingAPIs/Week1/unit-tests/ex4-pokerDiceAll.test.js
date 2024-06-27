@@ -1,10 +1,7 @@
 /* eslint-disable hyf/camelcase */
-const walk = require('acorn-walk');
-const {
-  beforeAllHelper,
-  testTodosRemoved,
-  testNoConsoleLog,
-} = require('../../../test-runner/unit-test-helpers');
+import { describe, beforeAll, expect, test, vi } from 'vitest';
+import { simple } from 'acorn-walk';
+import { beforeAllHelper, testTodosRemoved, testNoConsoleLog } from '../../../test-runner/unit-test-helpers';
 
 describe('ex4-pokerDiceAll', () => {
   const state = {};
@@ -17,7 +14,7 @@ describe('ex4-pokerDiceAll', () => {
     rollDice = exported;
 
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         MemberExpression({ object, property }) {
           if (object.name === 'Promise' && property.name === 'all') {
             state.promiseAll = true;
@@ -48,7 +45,7 @@ describe('ex4-pokerDiceAll', () => {
     expect.assertions(4);
     expect(exported).toBeDefined();
 
-    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
 
     const promise = rollDice();
     expect(promise).toBeInstanceOf(Promise);
@@ -65,7 +62,7 @@ describe('ex4-pokerDiceAll', () => {
     expect.assertions(3);
     expect(exported).toBeDefined();
 
-    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.999);
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.999);
 
     try {
       const promise = rollDice();

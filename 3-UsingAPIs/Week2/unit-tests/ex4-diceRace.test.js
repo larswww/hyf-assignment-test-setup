@@ -1,23 +1,24 @@
 /* eslint-disable hyf/camelcase */
-const walk = require('acorn-walk');
-const {
+import { test, expect, describe, beforeAll, vi } from 'vitest';
+import { simple } from 'acorn-walk';
+import {
   beforeAllHelper,
   testTodosRemoved,
   testNoConsoleLog,
-} = require('../../../test-runner/unit-test-helpers');
+} from '../../../test-runner/unit-test-helpers';
 
 describe('ex4-diceRace', () => {
   const state = {};
   let exported, rootNode, source, rollDice;
 
-  beforeAll(() => {
-    ({ exported, rootNode, source } = beforeAllHelper(__filename, {
+  beforeAll(async () => {
+    ({ exported, rootNode, source } = await beforeAllHelper(__filename, {
       parse: true,
     }));
     rollDice = exported;
 
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         MemberExpression({ object, property }) {
           if (object.name === 'Promise' && property.name === 'race') {
             state.promiseAll = true;
@@ -48,7 +49,7 @@ describe('ex4-diceRace', () => {
     expect.assertions(3);
     expect(exported).toBeDefined();
 
-    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
 
     const promise = rollDice();
     expect(promise).toBeInstanceOf(Promise);
@@ -64,7 +65,7 @@ describe('ex4-diceRace', () => {
     expect.assertions(3);
     expect(exported).toBeDefined();
 
-    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.999);
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.999);
 
     try {
       const promise = rollDice();

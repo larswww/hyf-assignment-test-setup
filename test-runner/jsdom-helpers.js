@@ -1,9 +1,9 @@
-const path = require('path');
-const jsdom = require('jsdom');
-const { HtmlValidate } = require('html-validate');
-// const { getFormatter } = require('html-validate/dist/cli/formatter');
-const htmlValidateOptions = require('../.htmlvalidate.json');
-const stylish = require('@html-validate/stylish').default;
+import { expect } from 'vitest';
+import path from 'path';
+import jsdom from 'jsdom';
+import { HtmlValidate } from 'html-validate';
+import { htmlValidateOptions } from '../.htmlvalidate.json';
+import stylish from '@html-validate/stylish';
 
 const { JSDOM } = jsdom;
 
@@ -13,10 +13,12 @@ function sleep(ms) {
   });
 }
 
-async function prepare() {
+export async function prepare(testPath) {
+  if (!testPath)
+    throw new Error(
+      'Test path not passed to prepare function, path of current test is needed'
+    );
   const homeworkFolder = process.env.ASSIGNMENT_FOLDER || 'assignment';
-
-  const { testPath } = expect.getState();
   const exercisePath = testPath
     .replace('unit-tests', homeworkFolder)
     .replace(/\.test\.js$/, '');
@@ -39,14 +41,9 @@ async function prepare() {
 
 const htmlValidate = new HtmlValidate(htmlValidateOptions);
 
-async function validateHTML(outerHTML) {
+export async function validateHTML(outerHTML) {
   const htmlText = `<!DOCTYPE html>\n${outerHTML}`;
   const { results } = htmlValidate.validateString(htmlText);
   const validationReport = stylish(results);
   expect(validationReport).toBe('');
 }
-
-module.exports = {
-  prepare,
-  validateHTML,
-};

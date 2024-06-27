@@ -1,18 +1,19 @@
 /* eslint-disable hyf/camelcase */
-const walk = require('acorn-walk');
-const { prepare, validateHTML } = require('../../../test-runner/jsdom-helpers');
-const {
+import { describe, expect, test, beforeAll, afterAll } from 'vitest';
+import { ancestor } from 'acorn-walk';
+import { prepare, validateHTML } from '../../../test-runner/jsdom-helpers';
+import {
   beforeAllHelper,
   onloadValidator,
   testTodosRemoved,
-} = require('../../../test-runner/unit-test-helpers');
+} from '../../../test-runner/unit-test-helpers';
 
 describe('catWalk', () => {
   let window, rootNode, source;
   const state = {};
 
   beforeAll(async () => {
-    window = await prepare();
+    window = await prepare(__filename);
     const { document } = window;
     state.outerHTML = document.documentElement.outerHTML;
     ({ rootNode, source } = beforeAllHelper(__filename, {
@@ -21,7 +22,7 @@ describe('catWalk', () => {
     }));
 
     rootNode &&
-      walk.ancestor(rootNode, {
+      ancestor(rootNode, {
         MemberExpression: onloadValidator(state),
         CallExpression({ callee }) {
           if (

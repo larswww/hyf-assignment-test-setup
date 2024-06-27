@@ -1,25 +1,26 @@
 /* eslint-disable hyf/camelcase */
-const walk = require('acorn-walk');
-const { prepare, validateHTML } = require('../../../test-runner/jsdom-helpers');
-const {
+import { describe, beforeAll, expect, test } from 'vitest';
+import { simple } from 'acorn-walk';
+import { prepare, validateHTML } from '../../../test-runner/jsdom-helpers';
+import {
   beforeAllHelper,
   testTodosRemoved,
-} = require('../../../test-runner/unit-test-helpers');
+} from '../../../test-runner/unit-test-helpers';
 
 describe('programmerFun', () => {
   const state = {};
   let rootNode, source;
 
   beforeAll(async () => {
-    const { document } = await prepare();
+    const { document } = await prepare(__filename);
     state.outerHTML = document.documentElement.outerHTML;
-    ({ rootNode, source } = beforeAllHelper(__filename, {
+    ({ rootNode, source } = await beforeAllHelper(__filename, {
       noRequire: true,
       parse: true,
     }));
 
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         CallExpression({ callee }) {
           if (callee.name === 'fetch') {
             state.fetch = true;

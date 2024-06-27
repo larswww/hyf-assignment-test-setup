@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const crypto = require('crypto');
-const util = require('util');
-const inquirer = require('inquirer');
-const _rimraf = require('rimraf');
-const fg = require('fast-glob');
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import util from 'util';
+import inquirer from 'inquirer';
+import _rimraf from 'rimraf';
+import fg from 'fast-glob';
 
 const rimraf = util.promisify(_rimraf);
 
@@ -147,7 +147,7 @@ function saveMostRecentSelection(module, week, exercise) {
   );
 }
 
-module.exports = {
+export default {
   compileMenuData,
   computeHash,
   prepareReportFolders,

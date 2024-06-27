@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
+    "dev": "vite",
     "testalt": "node ./test-runner @assignment",
     "it": "node ./test-runner/run-it",
     "alt": "node ./test-runner/run-it @assignment",

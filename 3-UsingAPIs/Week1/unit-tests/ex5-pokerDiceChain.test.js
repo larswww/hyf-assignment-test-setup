@@ -1,14 +1,11 @@
-const {
-  beforeAllHelper,
-  testTodosRemoved,
-  testNoConsoleLog,
-} = require('../../../test-runner/unit-test-helpers');
+import { describe, beforeAll, expect, test, vi } from 'vitest';
+import { beforeAllHelper, testTodosRemoved, testNoConsoleLog } from '../../../test-runner/unit-test-helpers';
 
 describe('ex5-pokerDiceChain', () => {
   let exported, source, rootNode, rollDice;
 
-  beforeAll(() => {
-    ({ exported, rootNode, source } = beforeAllHelper(__filename, {
+  beforeAll(async () => {
+    ({ exported, rootNode, source } = await beforeAllHelper(__filename, {
       parse: true,
     }));
     rollDice = exported;
@@ -26,7 +23,7 @@ describe('ex5-pokerDiceChain', () => {
     expect.assertions(4);
     expect(exported).toBeDefined();
 
-    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
 
     const promise = rollDice();
     expect(promise).toBeInstanceOf(Promise);
@@ -43,7 +40,7 @@ describe('ex5-pokerDiceChain', () => {
     expect.assertions(3);
     expect(exported).toBeDefined();
 
-    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.999);
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.999);
 
     try {
       const promise = rollDice();

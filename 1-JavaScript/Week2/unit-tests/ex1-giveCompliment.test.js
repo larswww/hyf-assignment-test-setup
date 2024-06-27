@@ -18,11 +18,9 @@ describe('giveCompliment', () => {
     }));
     giveCompliment = exported;
 
-    console.log(exported, rootNode, source);
     rootNode &&
       simple(rootNode, {
         VariableDeclarator({ id, init }) {
-          console.log(id, init);
           if (id?.name === 'compliments' && init?.type === 'ArrayExpression') {
             state.compliments = init.elements.map((elem) => elem.value);
           }

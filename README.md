@@ -94,7 +94,7 @@ function main() {
 if (process.env.NODE_ENV !== 'test') {
   main();
 }
-module.exports = giveCompliment;
+export default giveCompliment;
 ```
 
 Figure 2. Starter code example: file `ex1-giveCompliment.js`.

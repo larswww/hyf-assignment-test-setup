@@ -1,5 +1,6 @@
-const { beforeAllHelper } = require('../../../test-runner/unit-test-helpers');
-const _ = require('lodash');
+import { describe, beforeAll, test, vi } from 'vitest';
+import { beforeAllHelper } from '../../../test-runner/unit-test-helpers';
+import _ from 'lodash';
 
 const gridTemplate = [
   [
@@ -39,7 +40,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -60,7 +61,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -82,7 +83,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -105,7 +106,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -129,7 +130,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -149,7 +150,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -170,7 +171,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -192,7 +193,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -215,7 +216,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);
@@ -239,7 +240,7 @@ describe('Game Of Life:', () => {
 
     const context = {
       fillStyle: null,
-      fillRect: jest.fn(),
+      fillRect: vi.fn(),
     };
 
     const game = createGame(context, 3, 3);

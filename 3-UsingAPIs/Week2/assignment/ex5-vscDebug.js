@@ -4,7 +4,7 @@ Full description at: https://github.com/HackYourFuture/Assignments/blob/main/3-U
 
 Use the VSCode Debugger to fix the bugs
 --------------------------------------------------------------- --------------*/
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 async function getData(url) {
   const response = await fetch(url);

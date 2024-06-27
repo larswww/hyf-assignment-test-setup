@@ -1,22 +1,20 @@
 /* eslint-disable hyf/camelcase */
-const walk = require('acorn-walk');
-const {
-  beforeAllHelper,
-  testTodosRemoved,
-} = require('../../../test-runner/unit-test-helpers');
+import { describe, beforeAll, expect, test, vi } from 'vitest';
+import { simple } from 'acorn-walk';
+import { beforeAllHelper, testTodosRemoved } from '../../../test-runner/unit-test-helpers';
 
 describe('rollDie', () => {
   const state = {};
   let exported, rootNode, source, rollDie;
 
-  beforeAll(() => {
-    ({ exported, rootNode, source } = beforeAllHelper(__filename, {
+  beforeAll(async () => {
+    ({ exported, rootNode, source } = await beforeAllHelper(__filename, {
       parse: true,
     }));
     rollDie = exported;
 
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         NewExpression({ callee }) {
           if (callee.type === 'Identifier' && callee.name === 'Promise') {
             state.newPromise = true;
@@ -52,9 +50,9 @@ describe('rollDie', () => {
     expect.assertions(3);
     expect(exported).toBeDefined();
 
-    const logSpy = jest.spyOn(console, 'log').mockImplementation();
-    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
-    const setTimeoutSpy = jest
+    const logSpy = vi.spyOn(console, 'log').mockImplementation();
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0);
+    const setTimeoutSpy = vi
       .spyOn(global, 'setTimeout')
       .mockImplementation((cb) => cb());
 
@@ -75,9 +73,9 @@ describe('rollDie', () => {
     expect.assertions(3);
     expect(exported).toBeDefined();
 
-    const logSpy = jest.spyOn(console, 'log').mockImplementation();
-    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.999);
-    const setTimeoutSpy = jest
+    const logSpy = vi.spyOn(console, 'log').mockImplementation();
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.999);
+    const setTimeoutSpy = vi
       .spyOn(global, 'setTimeout')
       .mockImplementation((cb) => cb());
 

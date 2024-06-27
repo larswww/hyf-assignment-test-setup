@@ -9,7 +9,7 @@ const defaultOptions = {
   noRequire: false,
 };
 
-async function beforeAllHelper(testFilePath, options = {}) {
+export async function beforeAllHelper(testFilePath, options = {}) {
   options = Object.assign(defaultOptions, options);
   const matches = testFilePath
     .replace(/\\/g, '/')
@@ -35,9 +35,8 @@ async function beforeAllHelper(testFilePath, options = {}) {
   if (!options.noRequire) {
     try {
       // suppress all console.log output
-      vi.spyOn(console, 'log').mockImplementation();
+      // vi.spyOn(console, 'log').mockImplementation();
       const module = await import(exercisePath);
-      console.log('module:', module);
       result.exported = module.default;
     } catch (err) {
       console.log('Error attempting to `import`:', err);
@@ -53,7 +52,6 @@ async function beforeAllHelper(testFilePath, options = {}) {
         sourceType: 'module',
       });
     } catch (_) {
-      console.error(_);
       // Leave rootNode prop undefined
     }
   }
@@ -61,7 +59,7 @@ async function beforeAllHelper(testFilePath, options = {}) {
   return result;
 }
 
-function findAncestor(type, ancestors) {
+export function findAncestor(type, ancestors) {
   let index = ancestors.length - 1;
   while (index >= 0) {
     if (ancestors[index].type === type) {
@@ -72,7 +70,7 @@ function findAncestor(type, ancestors) {
   return null;
 }
 
-function onloadValidator(state) {
+export function onloadValidator(state) {
   return ({ object, property }, ancestors) => {
     if (object.name === 'window' && property.type === 'Identifier') {
       if (property.name === 'addEventListener') {
@@ -107,13 +105,13 @@ function onloadValidator(state) {
   };
 }
 
-function testTodosRemoved(getSource) {
+export function testTodosRemoved(getSource) {
   test('should have all TODO comments removed', () => {
     expect(/\bTODO\b/.test(getSource())).toBeFalsy();
   });
 }
 
-function testNoConsoleLog(functionName, getRootNode) {
+export function testNoConsoleLog(functionName, getRootNode) {
   test(`\`${functionName}\` should not contain unneeded console.log calls`, () => {
     const rootNode = getRootNode();
     let callsConsoleLog = false;
@@ -146,11 +144,3 @@ function testNoConsoleLog(functionName, getRootNode) {
     expect(callsConsoleLog).toBe(false);
   });
 }
-
-module.exports = {
-  beforeAllHelper,
-  findAncestor,
-  onloadValidator,
-  testTodosRemoved,
-  testNoConsoleLog,
-};

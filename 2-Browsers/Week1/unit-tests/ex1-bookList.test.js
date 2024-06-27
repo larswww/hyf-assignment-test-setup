@@ -1,26 +1,27 @@
 /* eslint-disable hyf/camelcase */
-const walk = require('acorn-walk');
-const {
+import { describe, test, beforeAll, expect } from 'vitest';
+import { simple } from 'acorn-walk';
+import {
   beforeAllHelper,
   testTodosRemoved,
-} = require('../../../test-runner/unit-test-helpers');
-const { prepare, validateHTML } = require('../../../test-runner/jsdom-helpers');
+} from '../../../test-runner/unit-test-helpers';
+import { prepare, validateHTML } from '../../../test-runner/jsdom-helpers';
 
 describe('Generated HTML', () => {
   const state = {};
   let document, source, rootNode;
 
   beforeAll(async () => {
-    ({ document } = await prepare());
+    ({ document } = await prepare(__filename));
     state.outerHTML = document.documentElement.outerHTML;
 
-    ({ rootNode, source } = beforeAllHelper(__filename, {
+    ({ rootNode, source } = await beforeAllHelper(__filename, {
       noRequire: true,
       parse: true,
     }));
 
     rootNode &&
-      walk.simple(rootNode, {
+      simple(rootNode, {
         VariableDeclarator({ id, init }) {
           if (id.name === 'myBooks' && init.type === 'ArrayExpression') {
             state.titlesAndAuthors = init.elements.reduce((acc, element) => {

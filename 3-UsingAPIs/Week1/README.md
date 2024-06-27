@@ -149,7 +149,7 @@ Since we want to practice with promises anyway, let's see what happens when we r
 
 So what do you think the JavaScript engine is doing while it is waiting for a `setTimeout()` to fire? Well, since it has nothing else waiting for it to do on its call stack, it is just sitting idle.
 
-Lets give the JavaScript engine something more to do. Paste this code just above the `module.exports` line:
+Lets give the JavaScript engine something more to do. Paste this code just above the `export default` line:
 
 ```js
 function wasteTimeBlocking() {

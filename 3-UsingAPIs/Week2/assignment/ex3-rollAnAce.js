@@ -10,7 +10,7 @@ Full description at: https://github.com/HackYourFuture/Assignments/blob/main/3-U
 3. Refactor the function `main()` to use async/await and try/catch.
 ------------------------------------------------------------------------------*/
 // ! Do not change or remove the next two lines
-const rollDie = require('../../helpers/pokerDiceRoller');
+import rollDie from '../../helpers/pokerDiceRoller.js';
 
 function rollDieUntil(wantedValue) {
   // TODO: rewrite this function using async/await
@@ -33,4 +33,4 @@ function main() {
 if (process.env.NODE_ENV !== 'test') {
   main();
 }
-module.exports = rollDieUntil;
+export default rollDieUntil;
