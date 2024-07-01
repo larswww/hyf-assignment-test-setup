@@ -7,6 +7,8 @@
   "scripts": {
     "test": "vitest",
     "dev": "vite",
+    "lint": "npx eslint .",
+    "lint:fix": "npx prettier --write . && npx eslint . --fix",
     "testalt": "node ./test-runner @assignment",
     "it": "node ./test-runner/run-it",
     "alt": "node ./test-runner/run-it @assignment",
