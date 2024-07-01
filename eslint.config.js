@@ -6,6 +6,7 @@ import hyf from 'eslint-plugin-hyf';
 export default [
   js.configs.recommended,
   {
+    ignores: ['./1-JavaScript/Week3'],
     languageOptions: { 
       globals: { ...globals.browser, 
         ...globals.node, axios: 'readonly' },
