@@ -1,13 +1,13 @@
-const fs = require('fs').promises;
-const { existsSync } = require('fs');
-const path = require('path');
-const fg = require('fast-glob');
-const chalk = require('chalk');
-require('dotenv').config();
+import { promises as fs } from 'fs';
+import { existsSync } from 'fs';
+import path from 'path';
+import fg from 'fast-glob';
+import chalk from 'chalk';
+import 'dotenv/config';
 
-const Cryptr = require('cryptr');
+import Cryptr from 'cryptr';
 
-const { makePath } = require('./test-runner-helpers');
+import { makePath } from './test-runner-helpers';
 
 const solutionsFolderName = '@assignment';
 

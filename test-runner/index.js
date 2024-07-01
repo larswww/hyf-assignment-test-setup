@@ -1,10 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const util = require('util');
-const { exec } = require('child_process');
-const chalk = require('chalk');
-const prompts = require('prompts');
-const {
+import fs from 'fs';
+import path from 'path';
+import util from 'util';
+import { exec } from 'child_process';
+import chalk from 'chalk';
+import prompts from 'prompts';
+
+import {
   makePath,
   compileMenuData,
   computeHash,
@@ -14,9 +15,9 @@ const {
   selectExercise,
   loadMostRecentSelection,
   saveMostRecentSelection,
-} = require('./test-runner-helpers');
-const logger = require('./logger');
-const hashes = require('../.hashes.json');
+} from './test-runner-helpers';
+import logger from './logger';
+import hashes from '../.hashes.json';
 
 const execAsync = util.promisify(exec);
 

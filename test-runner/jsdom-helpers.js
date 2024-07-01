@@ -34,7 +34,7 @@ export async function prepare(testPath) {
     }
   );
 
-  window.fetch = require('node-fetch');
+  window.fetch = await import(('node-fetch'));
   await sleep(1000);
   return window;
 }

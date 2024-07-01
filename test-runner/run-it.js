@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const http = require('http');
-const handler = require('serve-handler');
-const open = require('open');
-const chalk = require('chalk');
-const {
+import fs from 'fs';
+import path from 'path';
+import http from 'http';
+import handler from 'serve-handler';
+import open from 'open';
+import chalk from 'chalk';
+import {
   makePath,
   compileMenuData,
   computeHash,
@@ -14,8 +14,8 @@ const {
   selectExercise,
   loadMostRecentSelection,
   saveMostRecentSelection,
-} = require('./test-runner-helpers');
-const hashes = require('../.hashes.json');
+} from './test-runner-helpers';
+import hashes from '../.hashes.json';
 
 const PORT = 3030;
 
@@ -79,7 +79,7 @@ async function runExercise(exercisePath) {
   }
 
   try {
-    require(requirePath);
+    await import(requirePath);
   } catch (err) {
     console.log(chalk.red(`Something went wrong: ${err.message}`));
   }

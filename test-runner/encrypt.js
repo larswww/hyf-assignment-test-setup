@@ -1,16 +1,15 @@
-const fs = require('fs').promises;
-const { existsSync } = require('fs');
-const path = require('path');
-const util = require('util');
-const fg = require('fast-glob');
-const _rimraf = require('rimraf');
-const chalk = require('chalk');
-require('dotenv').config();
-
+import { promises as fs } from 'fs';
+import { existsSync } from 'fs';
+import path from 'path';
+import util from 'util';
+import fg from 'fast-glob';
+import _rimraf from 'rimraf';
+import chalk from 'chalk';
+import 'dotenv/config';
+import Cryptr from 'cryptr'
 const rimraf = util.promisify(_rimraf);
-const Cryptr = require('cryptr');
 
-const { compileMenuData, makePath } = require('./test-runner-helpers');
+import { compileMenuData, makePath } from './test-runner-helpers';
 
 async function encryptExerciseSolution(secret, fileSpec, exerciseJSON) {
   const cryptr = new Cryptr(secret);

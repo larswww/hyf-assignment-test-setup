@@ -1,11 +1,11 @@
 //cspell: disable
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
-const si = require('systeminformation');
-const { parse } = require('comment-json');
-const _ = require('lodash');
-const chalk = require('chalk');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import si from 'systeminformation';
+import { parse } from 'comment-json';
+import _ from 'lodash';
+import chalk from 'chalk';
 
 const ONE_GB_1024 = 1024 * 1024 * 1024;
 
